@@ -1,0 +1,30 @@
+/* Full Stack Open Part 7, exercises 7.9-7.21 */
+/* (Same notification styles as in Part 5.) */
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.success {
+  color: green;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.blog {
+  padding-top: 10px;
+  padding-left: 2px;
+  border: solid;
+  border-width: 1px;
+  margin-bottom: 5px;
+}
