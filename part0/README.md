@@ -1,0 +1,68 @@
+# Part 0 — Fundamentals of Web apps
+
+Exercises 0.1, 0.2 and 0.3 were reading exercises (MDN tutorials on HTML, CSS and HTML forms) and are not submitted as files, as stated in the course material.
+
+Exercises 0.4, 0.5 and 0.6 are the sequence diagrams below, made with Mermaid syntax in GitHub Markdown.
+
+## 0.4: New note diagram
+
+The user creates a new note on https://studies.cs.helsinki.fi/exampleapp/notes by writing something into the text field and clicking Save (traditional web application).
+
+```mermaid
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    Note right of browser: Form data: note=the text the user wrote
+    Note right of server: Server creates a new note object {content: note, date: new Date()} and adds it to the notes array
+    server-->>browser: HTTP 302 redirect to /exampleapp/notes
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    server-->>browser: HTML document
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    server-->>browser: CSS file (main.css)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    server-->>browser: JavaScript file (main.js)
+    Note right of browser: Browser executes the JavaScript code, which fetches the notes data
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    server-->>browser: JSON data including the new note
+    Note right of browser: Browser executes the event handler and renders the notes, including the new note, to the page
+```
+
+## 0.5: Single page app diagram
+
+The user goes to the single-page app version of the notes app at https://studies.cs.helsinki.fi/exampleapp/spa.
+
+```mermaid
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    server-->>browser: HTML document
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    server-->>browser: CSS file (main.css)
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    server-->>browser: JavaScript file (spa.js)
+    Note right of browser: Browser executes the JavaScript code, which fetches the notes data
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    server-->>browser: JSON data
+    Note right of browser: Browser executes the event handler and renders the notes to the page
+```
+
+## 0.6: New note in Single page app diagram
+
+The user creates a new note using the single-page version of the app at https://studies.cs.helsinki.fi/exampleapp/spa.
+
+```mermaid
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: User writes a note and clicks Save. The submit handler calls e.preventDefault(), creates a new note {content, date}, adds it to the notes list and re-renders the list. The page is not reloaded.
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    Note right of browser: JSON data {content, date}, Content-Type application/json
+    Note right of server: Server adds the new note to the notes array
+    server-->>browser: HTTP 201 Created
+    Note right of browser: Browser stays on the same page; the new note is already shown in the rendered list
+```
